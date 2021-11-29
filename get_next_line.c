@@ -3,81 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahmaidi <ahmaidi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otman <otman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 22:25:11 by ahmaidi           #+#    #+#             */
-/*   Updated: 2021/11/27 01:27:44 by ahmaidi          ###   ########.fr       */
+/*   Updated: 2021/11/29 03:36:45 by otman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-char	*check_stock(char **line, char **stock)
+char	*get_line(char *s)
 {
-	char	*p_of_n;
+	int i;
+	char	*line;
+
+	i = 0;
+	if(ft_strchr(s, '\n'))
+	{
+	while(s[i]!= '\n')
+		i++;
+	line = ft_substr(s, 0,i + 1);
+	return (line);
+	}
+	line = ft_strdup(s);
+	free(s);
+	return (line);
+}
+char	*get_stock(char	*s)
+{
+	int	i;
 	char	*temp;
 
-	temp = NULL;
-	if (!*stock)
+	if(!s)
 		return (NULL);
-	p_of_n = ft_strchr(*stock, '\n');
-	if (p_of_n)
-	{
-		*line = ft_strdup("");
-		temp = ft_strdup(++p_of_n);
-		*p_of_n = '\0';
-		*line = ft_strjoin(*line, *stock);
-		free (*stock);
-		*stock = ft_strdup(temp);
-		free(temp);
-	}
-	else if (*stock)
-	{
-		*line = ft_strdup(*stock);
-		free(*stock);
-		*stock = NULL;
-	}
-	return (p_of_n);
+	i = 0;
+	temp = s;
+	if(!ft_strchr(s,'\n'))
+		return (NULL);
+	while(s[i]!= '\n' && s[i])
+		i++;
+	if(s[i + 1])
+		return(NULL);
+	temp = s;
+	s = ft_substr(s, i + 1, ft_strlen(s)- i);
+	free(temp);
+	printf("S :%s\n",s);
+	return (s);
 }
-
 char	*get_next_line(int fd)
 {
 	char		*buffer;
 	static char	*stock;
+	int			read_f;
 	char		*line;
-	char		*p_of_n;
+	char		*temp;
 
+	line = NULL;
 	if (fd < 0 || BUFFER_SIZE == 0)
 		return (NULL);
-	p_of_n = NULL;
-	line = NULL;
-	p_of_n = check_stock(&line, &stock);
+	read_f = 1;
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (NULL);
-	while (!p_of_n && read(fd, buffer, BUFFER_SIZE))
+	
+	while (read_f > 0 && !ft_strchr(stock,'\n') )
 	{
-		if (!line)
-			line = ft_strdup("");
-		p_of_n = ft_strchr(buffer, '\n');
-		if (p_of_n)
-		{
-			stock = ft_strdup(++p_of_n);
-			*p_of_n = '\0';
-		}
-		line = ft_strjoin(line, buffer);
+		read_f = read(fd, buffer, BUFFER_SIZE);
+		if(read_f > 0)
+			stock = ft_strjoin(stock, buffer);
 	}
 	free(buffer);
+	line = get_line(stock);
+	stock = get_stock(stock);
+	printf("here\n");
 	return (line);
 }
 int main()
 {
-	char *line;
-	int fd;
-	fd = open("file1",O_RDONLY);
-	while((line = get_next_line(fd)))
-	{
-		printf("%s",line);
-	}
+	int	fd;
+
+	fd = open("file1", O_RDONLY);
+	printf("line  %s",get_next_line(fd));
+	printf("line2  %s",get_next_line(fd));
 }

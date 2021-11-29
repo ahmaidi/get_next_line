@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahmaidi <ahmaidi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otman <otman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 22:21:42 by ahmaidi           #+#    #+#             */
-/*   Updated: 2021/11/25 12:08:05 by ahmaidi          ###   ########.fr       */
+/*   Updated: 2021/11/29 02:40:07 by otman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
 void	*ft_calloc(size_t count, size_t size);
 void	ft_bzero(void *s, size_t n);
-char	*ft_strchr(const char *s, int c);
+int     ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
-
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 #endif
