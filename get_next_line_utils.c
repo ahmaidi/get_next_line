@@ -6,7 +6,7 @@
 /*   By: ahmaidi <ahmaidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 22:25:14 by ahmaidi           #+#    #+#             */
-/*   Updated: 2021/11/29 16:19:50 by ahmaidi          ###   ########.fr       */
+/*   Updated: 2021/11/29 21:22:50 by ahmaidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
-	if(!s)
-		return(0);
+	if (!s)
+		return (0);
 	while (s[i] != '\0')
 		i++;
 	return (i);
@@ -49,8 +49,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t			s2_len;
 	unsigned int	i;
 
-	if (!s2)
-		return (NULL);
+	if (!s1 && s2)
+		return (ft_strdup(s2));
 	i = 0;
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
