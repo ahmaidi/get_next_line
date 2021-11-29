@@ -6,7 +6,7 @@
 /*   By: ahmaidi <ahmaidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 22:25:11 by ahmaidi           #+#    #+#             */
-/*   Updated: 2021/11/29 22:45:42 by ahmaidi          ###   ########.fr       */
+/*   Updated: 2021/11/29 22:54:50 by ahmaidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,16 @@ char	*get_next_line(int fd)
 // int main()
 // {
 // 	int	fd;
-
+// 	char *line;
+	
 // 	fd = open("file1", O_RDONLY);
-// 	printf("line  %s",get_next_line(fd));
-// 	// printf("line2  %s",get_next_line(fd));	
-// 	//while(1);
+// 	line = get_next_line(fd);
+// 	while (line)
+// 	{
+// 		printf("line  %s",line);
+// 		free(line);
+// 		line = get_next_line(fd);
+// 	}
+	
+
 // }
