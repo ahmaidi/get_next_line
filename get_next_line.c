@@ -6,43 +6,43 @@
 /*   By: ahmaidi <ahmaidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 22:25:11 by ahmaidi           #+#    #+#             */
-/*   Updated: 2021/11/29 22:54:50 by ahmaidi          ###   ########.fr       */
+/*   Updated: 2021/12/01 15:34:55 by ahmaidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-char	*get_line(char **s)
+char	*get_line(char **stock)
 {
 	int		i;
 	char	*line;
 	char	*tmp;
 
 	i = 0;
-	while ((*s)[i] != '\n')
+	while ((*stock)[i] != '\n')
 		i++;
-	line = ft_substr(*s, 0, i + 1);
-	tmp = *s;
-	*s = ft_substr(*s, i + 1, ft_strlen(*s) - i);
+	line = ft_substr(*stock, 0, i + 1);
+	tmp = *stock;
+	*stock = ft_substr(*stock, i + 1, ft_strlen(*stock) - i);
 	free(tmp);
 	return (line);
 }
 
-char	*get_stock(char	**s)
+char	*get_stock(char	**stock)
 {
 	char	*ligne;
 
-	if (*s && **s != '\0')
+	if (*stock && **stock != '\0')
 	{
-		ligne = *s;
-		*s = NULL;
+		ligne = *stock;
+		*stock = NULL;
 		return (ligne);
 	}
 	else
 	{
-		free(*s);
-		*s = NULL;
+		free(*stock);
+		*stock = NULL;
 		return (NULL);
 	}
 }
@@ -62,7 +62,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (NULL);
 	while (!ft_strchr(stock, '\n'))
@@ -80,20 +80,3 @@ char	*get_next_line(int fd)
 		return (get_line(&stock));
 	return (get_stock(&stock));
 }
-
-// int main()
-// {
-// 	int	fd;
-// 	char *line;
-	
-// 	fd = open("file1", O_RDONLY);
-// 	line = get_next_line(fd);
-// 	while (line)
-// 	{
-// 		printf("line  %s",line);
-// 		free(line);
-// 		line = get_next_line(fd);
-// 	}
-	
-
-// }

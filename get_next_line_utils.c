@@ -6,7 +6,7 @@
 /*   By: ahmaidi <ahmaidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 22:25:14 by ahmaidi           #+#    #+#             */
-/*   Updated: 2021/11/29 21:22:50 by ahmaidi          ###   ########.fr       */
+/*   Updated: 2021/12/01 15:38:09 by ahmaidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,49 +25,31 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*p;
-	size_t	i;
-
-	i = 0;
-	p = (void *)malloc(count * size);
-	if (!p)
-		return (NULL);
-	while (i < (count * size))
-	{
-		((char *)p)[i] = 0;
-		i++;
-	}
-	return (p);
-}
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char			*str_join;
-	size_t			s1_len;
-	size_t			s2_len;
+	size_t			len;
 	unsigned int	i;
 
 	if (!s1 && s2)
 		return (ft_strdup(s2));
 	i = 0;
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	str_join = (char *)ft_calloc(sizeof(char), (s1_len + s2_len + 1));
+	len = ft_strlen(s1) + ft_strlen(s2);
+	str_join = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str_join)
 		return (NULL);
-	while (i < s1_len)
+	while (s1[i])
 	{
 		str_join[i] = s1[i];
 		i++;
 	}
 	i = 0;
-	while (i < s2_len)
+	while (s2[i])
 	{
-		str_join[i + s1_len] = s2[i];
+		str_join[i + ft_strlen(s1)] = s2[i];
 		i++;
 	}
+	str_join[i + ft_strlen(s1)] = '\0';
 	free((char *)s1);
 	return (str_join);
 }
@@ -98,7 +80,7 @@ char	*ft_strdup(const char *s1)
 	int		i;
 
 	len = ft_strlen(s1);
-	cpy = (char *) malloc (sizeof(char) * (len + 1));
+	cpy = (char *) malloc(sizeof(char) * (len + 1));
 	i = 0;
 	if (!cpy)
 		return (NULL);

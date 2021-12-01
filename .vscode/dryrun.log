@@ -1,0 +1,7 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/ahmaidi/Desktop/get_next_line'
+ 
+make: Leaving directory `/Users/ahmaidi/Desktop/get_next_line'
+ 
+make: *** No targets.  Stop.
+ 
