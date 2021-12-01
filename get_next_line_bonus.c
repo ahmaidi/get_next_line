@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahmaidi <ahmaidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 22:25:11 by ahmaidi           #+#    #+#             */
-/*   Updated: 2021/12/01 17:19:30 by ahmaidi          ###   ########.fr       */
+/*   Updated: 2021/12/01 18:11:27 by ahmaidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*get_line(char **stock)
 {
@@ -56,7 +56,7 @@ static char	*free_it(char *buffer, char *stock)
 char	*get_next_line(int fd)
 {
 	char		*buffer;
-	static char	*stock;
+	static char	*stock[OPEN_MAX];
 	int			read_f;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -64,18 +64,18 @@ char	*get_next_line(int fd)
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (NULL);
-	while (!ft_strchr(stock, '\n'))
+	while (!ft_strchr(stock[fd], '\n'))
 	{
 		read_f = read(fd, buffer, BUFFER_SIZE);
 		if (read_f < 0)
-			return (free_it(buffer, stock));
+			return (free_it(buffer, stock[fd]));
 		if (read_f == 0)
 			break ;
 		buffer[read_f] = 0;
-		stock = ft_strjoin(stock, buffer);
+		stock[fd] = ft_strjoin(stock[fd], buffer);
 	}
 	free(buffer);
-	if (ft_strchr(stock, '\n'))
-		return (get_line(&stock));
-	return (get_stock(&stock));
+	if (ft_strchr(stock[fd], '\n'))
+		return (get_line(&stock[fd]));
+	return (get_stock(&stock[fd]));
 }
