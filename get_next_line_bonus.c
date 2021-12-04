@@ -6,7 +6,7 @@
 /*   By: ahmaidi <ahmaidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 22:25:11 by ahmaidi           #+#    #+#             */
-/*   Updated: 2021/12/01 18:11:27 by ahmaidi          ###   ########.fr       */
+/*   Updated: 2021/12/04 22:12:41 by ahmaidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*get_next_line(int fd)
 		if (read_f == 0)
 			break ;
 		buffer[read_f] = 0;
-		stock[fd] = ft_strjoin(stock[fd], buffer);
+		stock[fd] = ft_strjoin(&stock[fd], buffer);
 	}
 	free(buffer);
 	if (ft_strchr(stock[fd], '\n'))

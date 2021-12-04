@@ -6,7 +6,7 @@
 /*   By: ahmaidi <ahmaidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 22:25:14 by ahmaidi           #+#    #+#             */
-/*   Updated: 2021/12/01 17:19:38 by ahmaidi          ###   ########.fr       */
+/*   Updated: 2021/12/04 22:15:54 by ahmaidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,32 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char **s1, char *s2)
 {
 	char			*str_join;
 	size_t			len;
 	unsigned int	i;
 
-	if (!s1 && s2)
+	if (!*s1 && s2)
 		return (ft_strdup(s2));
 	i = 0;
-	len = ft_strlen(s1) + ft_strlen(s2);
+	len = ft_strlen(*s1) + ft_strlen(s2);
 	str_join = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str_join)
 		return (NULL);
-	while (s1[i])
+	while ((*s1)[i])
 	{
-		str_join[i] = s1[i];
+		str_join[i] = (*s1)[i];
 		i++;
 	}
 	i = 0;
 	while (s2[i])
 	{
-		str_join[i + ft_strlen(s1)] = s2[i];
+		str_join[i + ft_strlen(*s1)] = s2[i];
 		i++;
 	}
-	str_join[i + ft_strlen(s1)] = '\0';
-	free((char *)s1);
+	str_join[i + ft_strlen(*s1)] = '\0';
+	free(*s1);
 	return (str_join);
 }
 
